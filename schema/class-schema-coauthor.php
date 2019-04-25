@@ -24,7 +24,7 @@ class YoastCoauthor_Schema_Coauthor extends WPSEO_Schema_Person implements WPSEO
 	public function __construct( WPSEO_Schema_Context $context, $userId ) {
 		parent::__construct( $context );
 		$this->context   = $context;
-		$this->logo_hash = WPSEO_Schema_IDs::AUTHOR_LOGO_HASH;
+		$this->logo_hash = $userId + '_' . WPSEO_Schema_IDs::AUTHOR_LOGO_HASH;
 		$this->coauthor_user_id = $userId;
 	}
 
@@ -97,4 +97,28 @@ class YoastCoauthor_Schema_Coauthor extends WPSEO_Schema_Person implements WPSEO
 	protected function determine_schema_id( $user_id ) {
 		return get_author_posts_url( $user_id ) . WPSEO_Schema_IDs::AUTHOR_HASH;
 	}
+
+  /**
+   * Returns an ImageObject for the persons avatar.
+   * We overide this to ensure the url is unique
+   *
+   * @param array    $data      The Person schema.
+   * @param \WP_User $user_data User data.
+   *
+   * @return array $data The Person schema.
+   */
+  protected function add_image( $data, $user_data ) {
+    if ( ! get_avatar_url( $user_data->user_email ) ) {
+      return $data;
+    }
+
+    $data['image'] = array(
+      '@type'   => 'ImageObject',
+      '@id'     => get_author_posts_url( $user_data->ID ) .  WPSEO_Schema_IDs::PERSON_LOGO_HASH,
+      'url'     => get_avatar_url( $user_data->user_email ),
+      'caption' => $user_data->display_name,
+    );
+
+    return $data;
+  }
 }

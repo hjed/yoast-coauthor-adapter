@@ -9,7 +9,7 @@
 * Plugin Name: Yoast Coauthor Adapter
 * Plugin URI:
 * Description: Makes Yoast SEO schema.org meta data play nicely with the co-author plus plugin
-* Version: 0.0.1
+* Version: 0.0.2
 * Author: Harry J.E Day
 * Author URI: https://github.com/hjed
 * Depends: Yoast SEO, Co-Authors Plus

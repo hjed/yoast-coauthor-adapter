@@ -75,7 +75,6 @@ function yoastcoauthor_add_coauthors_to_article($data) {
           $data['author'][] = yoastcoauthor_get_author_article_json($author->ID);
         }
       } else {
-        print_r($user);
         $data['author'][] = array(
           '@id' => get_site_url() . '/' . Schema_IDs::PERSON_HASH . \wp_hash( $author->user_login . $author->ID )
         );

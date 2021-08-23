@@ -1,4 +1,3 @@
-
 <?php
 
 use Yoast\WP\SEO\Generators\Schema\Author;
